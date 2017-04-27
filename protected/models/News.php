@@ -57,8 +57,8 @@ class News extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'id_user' => 'Id User',
-			'post' => 'Post',
+			'id_user' => 'Id Автора',
+			'post' => 'Новость',
 		);
 	}
 

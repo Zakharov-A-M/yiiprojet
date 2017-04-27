@@ -61,9 +61,9 @@ class Cars extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'id_user' => 'Id User',
-			'brand' => 'Brand',
-			'number' => 'Number',
-			'cost' => 'Cost',
+			'brand' => 'Марка',
+			'number' => 'Номер',
+			'cost' => 'Цена',
 		);
 	}
 

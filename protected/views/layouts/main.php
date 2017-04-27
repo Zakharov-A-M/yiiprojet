@@ -27,18 +27,38 @@
 	</div><!-- header -->
 
 	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
+		<?php
+
+        if(Yii::app()->session->get("id") == ''){
+        $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
 			//	array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 				//array('label'=>'Contact', 'url'=>array('/site/contact')),
-                array('label'=>'News', 'url'=>array('/news/index')),
-                array('label'=>'Cars', 'url'=>array('/cars/index')),
-                array('label'=>'Users', 'url'=>array('/users/index')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                //array('label'=>'News', 'url'=>array('/news/index')),
+              //  array('label'=>'Cars', 'url'=>array('/cars/index')),
+              //  array('label'=>'Users', 'url'=>array('/users/index')),
+                array('label'=>'Registration', 'url'=>array('/site/registration')),
+                array('label'=>'Login', 'url'=>array('/site/login')),
+				//array('label'=>'Logout', 'url'=>array('/site/logout')),
 			),
-		)); ?>
+		)); } else{
+            $this->widget('zii.widgets.CMenu',array(
+                'items'=>array(
+                    array('label'=>'Home', 'url'=>array('/site/index')),
+                    //	array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+                    //array('label'=>'Contact', 'url'=>array('/site/contact')),
+                    array('label'=>'News', 'url'=>array('/news/index')),
+                    array('label'=>'Cars', 'url'=>array('/cars/index')),
+                    array('label'=>'Users', 'url'=>array('/users/index')),
+                 //   array('label'=>'Registration', 'url'=>array('/site/registration')),
+                  //  array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                    array('label'=>'Logout ('.Yii::app()->session->get("username").')', 'url'=>array('/site/logout')),
+                ),
+            ));
+
+        }
+		?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(

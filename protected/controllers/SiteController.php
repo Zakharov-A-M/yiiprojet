@@ -77,21 +77,18 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-		$model=new LoginForm;
-
+		$model = new Users('authenticate');
 		// if it is ajax validation request
 		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-
-		// collect user input data
-		if(isset($_POST['LoginForm']))
-		{
-			$model->attributes=$_POST['LoginForm'];
+		if(isset($_POST['Users']))
+        {
+			$model->attributes=$_POST['Users'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
+			if($model->validate())
 				$this->redirect(Yii::app()->user->returnUrl);
 		}
 		// display the login form
@@ -107,10 +104,19 @@ class SiteController extends Controller
 		$this->redirect(Yii::app()->homeUrl);
 	}
 
-    public function actionUser()
+    /**
+     * action для регистрации пользователя
+     * @return mixed|string
+     */
+    public function actionRegistration()
     {
-        Yii::app()->user->logout();
-        $this->redirect(Yii::app()->homeUrl);
+        $model = new Users('dublicate');
+        if(isset($_POST['Users'])) {
+            $model->attributes=$_POST['Users'];
+            if($model->validate())
+           $this->redirect(Yii::app()->homeUrl);
+        }
+        $this->render('registration',array('model'=>$model));
     }
 
 }

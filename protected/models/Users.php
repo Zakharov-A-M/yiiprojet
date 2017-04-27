@@ -13,6 +13,10 @@
  */
 class Users extends CActiveRecord
 {
+
+    public $username;
+    public $password;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -29,7 +33,9 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password', 'required'),
+			array('username, password','required'),
+            array('password', 'authenticate', 'on' => 'authenticate'),
+            array('password', 'dublicate', 'on' => 'dublicate'),
 			array('username, password', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -37,7 +43,35 @@ class Users extends CActiveRecord
 		);
 	}
 
-	/**
+    /**
+     * Валидация проверки логина и пароля в бд при авторизации
+     * @param $attribute string - атрибут поля
+     * @param $params string - параметр ошибки
+     */
+        public function authenticate($attribute,$params){
+            if(!$this->hasErrors()) {
+                if(!$this->login())
+                    $this->addError('password','Incorrect username or password.');
+            }
+        }
+
+
+
+    /**
+     * Валидация проверки логина и пароля в бд при регистрации
+     * @param $attribute string - атрибут поля
+     * @param $params string - параметр ошибки
+     */
+         public function dublicate($attribute,$params){
+             if (!$this->hasErrors()) {
+                 if (!$this->Dublicate_user())
+                     $this->addError('password', 'User exists in the database.');
+             }
+         }
+
+
+
+    /**
 	 * @return array relational rules.
 	 */
 	public function relations()
@@ -98,4 +132,61 @@ class Users extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    /**
+     * метод для получения пользователя с бд
+     * @return bool
+     */
+	public  function login(){
+        $user = new CDbCriteria;
+        //$user->select = 'password';
+        $user->condition = 'username=:username';
+        $user->params = array(':username'=>$this->username);
+        $posts = Users::model()->find($user);
+        //$posts = Users::model()->findByPk(21);
+        if($posts->password == $this->HashPassword($this->password)){
+            Yii::app()->session->add("id", $posts->id);
+            Yii::app()->session->add("username", $posts->username);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * метод добавление пользователя в бд
+     * @return bool  - успешное сохрание (true)
+     */
+    public  function Dublicate_user(){
+        $user = new CDbCriteria;
+        $user->select='username';
+        $user->condition='username=:username';
+        $user->params=array(':username'=>$this->username);
+        $posts = Users::model()->find($user);
+        if($posts == null){
+            $model = new Users();
+            $model->username = $this->username;
+            $model->password = $this->HashPassword($this->password);
+            if($model->save()) {
+                $user = new CDbCriteria;
+              //  $user->select='username';
+                $user->condition='username=:username';
+                $user->params=array(':username'=>$this->username);
+                $posts = Users::model()->find($user);
+                Yii::app()->session->add("id", $posts->id);
+                Yii::app()->session->add("username", $posts->username);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Хеширование пароля
+     * @param $password string
+     * @return string
+     */
+    public function HashPassword($password){
+	     return  hash('sha256',$password);
+    }
+
 }
