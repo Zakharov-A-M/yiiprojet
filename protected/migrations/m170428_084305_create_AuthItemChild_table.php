@@ -1,34 +1,38 @@
 <?php
 
-class m170426_125855_create_cars_table extends CDbMigration
+class m170428_084305_create_AuthItemChild_table extends CDbMigration
 {
 	public function up()
 	{
         $transaction=$this->getDbConnection()->beginTransaction();
-
         try
         {
-            $this->createTable('cars', array(
-                'id' => 'pk',
-                'id_user' => 'integer NOT NULL',
-                'brand' => 'string NOT NULL',
-                'number' => 'string NOT NULL',
-                'cost' => 'double NOT NULL',
+            $this->createTable('AuthItemChild', array(
+                'parent' => 'string NOT NULL',
+                'child' => 'string NOT NULL',
+
             ));
             $this->createIndex(
-                'idx-post-id_user_cars',
-                'cars',
-                'id_user'
+                'idx-post-parent_auth',
+                'AuthItemChild',
+                'parent'
             );
             $this->addForeignKey(
-                'fk-post-id_user_cars',
-                'cars',
-                'id_user',
-                'users',
-                'id',
+                'fk-post-user_id_auth',
+                'AuthItemChild',
+                'parent',
+                'AuthItem',
+                'name',
                 'CASCADE',
                 'CASCADE'
             );
+
+            $this->addPrimaryKey(
+                'parent_pk',
+                'AuthItemChild',
+                'parent');
+
+
             $transaction->commit();
         }
         catch(Exception $e)
@@ -41,8 +45,7 @@ class m170426_125855_create_cars_table extends CDbMigration
 
 	public function down()
 	{
-        $this->dropTable('cars');
-		echo "m170426_125855_create_cars_table does not support migration down.\n";
+		echo "m170428_084305_create_AuthItemChild_table does not support migration down.\n";
 		return false;
 	}
 

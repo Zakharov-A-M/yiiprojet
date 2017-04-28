@@ -144,4 +144,22 @@ class CarsController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+    protected function beforeAction($action)
+    {
+        switch ( $action->id) {
+            case 'create':
+                break;
+            case 'update':
+              //  if(Yii::app()->roles->getRole)
+                throw new CHttpException(403,'У вас не хватает доступа');
+                break;
+            case 'delete':
+                break;
+        }
+        return parent::beforeAction($action);
+    }
+
+
+
 }

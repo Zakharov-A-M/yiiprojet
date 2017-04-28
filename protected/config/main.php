@@ -37,6 +37,9 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
+        'roles' => array(
+            'class' => 'Users',
+        ),
 
 		// uncomment the following to enable URLs in path-format
 
@@ -73,6 +76,12 @@ return array(
 				*/
 			),
 		),
+
+
+        'authManager'=>array(
+            'class' => 'CDbAuthManager',
+            'defaultRoles' => array('user'),
+        ),
 
 	),
 

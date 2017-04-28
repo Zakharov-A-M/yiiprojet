@@ -30,15 +30,11 @@ class Users extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('username, password','required'),
-            array('password', 'authenticate', 'on' => 'authenticate'),
+            array('password', 'authenticates', 'on' => 'authenticate'),
             array('password', 'dublicate', 'on' => 'dublicate'),
 			array('username, password', 'length', 'max'=>255),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
 			array('id, username, password', 'safe', 'on'=>'search'),
 		);
 	}
@@ -48,14 +44,12 @@ class Users extends CActiveRecord
      * @param $attribute string - атрибут поля
      * @param $params string - параметр ошибки
      */
-        public function authenticate($attribute,$params){
+        public function authenticates($attribute,$params){
             if(!$this->hasErrors()) {
                 if(!$this->login())
                     $this->addError('password','Incorrect username or password.');
             }
         }
-
-
 
     /**
      * Валидация проверки логина и пароля в бд при регистрации
@@ -68,8 +62,6 @@ class Users extends CActiveRecord
                      $this->addError('password', 'User exists in the database.');
              }
          }
-
-
 
     /**
 	 * @return array relational rules.
@@ -188,5 +180,18 @@ class Users extends CActiveRecord
     public function HashPassword($password){
 	     return  hash('sha256',$password);
     }
+
+
+    public function getRole(){
+        if(Yii::app()->session->get("id") != ''){
+            $user = new CDbCriteria;
+            $user->condition='userid=:userid';
+            $user->params=array(':userid'=>Yii::app()->session->get("id"));
+            $model = AuthAssigment::model()->find($user);
+            return $model->itemname;
+        }
+    }
+
+
 
 }

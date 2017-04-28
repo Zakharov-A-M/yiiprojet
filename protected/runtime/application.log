@@ -798,3 +798,932 @@ Stack trace:
 REQUEST_URI=/index.php/news/create
 HTTP_REFERER=http://my-project.by/index.php/news/create
 ---
+2017/04/28 09:20:00 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'cars' already exists. The SQL statement executed was: CREATE TABLE `cars` (
+	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`id_user` int(11) NOT NULL,
+	`brand` varchar(255) NOT NULL,
+	`number` varchar(255) NOT NULL,
+	`cost` double NOT NULL
+).
+2017/04/28 09:21:23 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'cars' already exists. The SQL statement executed was: CREATE TABLE `cars` (
+	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`id_user` int(11) NOT NULL,
+	`brand` varchar(255) NOT NULL,
+	`number` varchar(255) NOT NULL,
+	`cost` double NOT NULL
+).
+2017/04/28 09:24:48 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[HY000]: General error: 1005 Can't create table 'testapp.#sql-a6c_6' (errno: 121). The SQL statement executed was: ALTER TABLE `cars` ADD CONSTRAINT `fk-post-id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE.
+2017/04/28 10:39:32 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pk,
+	`user_id` varchar(255) NOT NULL,
+	`bizrule` varchar(255) NOT NULL,
+	`data` ' at line 2. The SQL statement executed was: CREATE TABLE `AuthAssigment` (
+	`itemname` varchar(255) NOT NULL pk,
+	`user_id` varchar(255) NOT NULL,
+	`bizrule` varchar(255) NOT NULL,
+	`data` varchar(255) NOT NULL
+).
+2017/04/28 11:11:32 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pk,
+	`type` varchar(255) NOT NULL,
+	`description` varchar(255) NOT NULL,
+	`bizru' at line 2. The SQL statement executed was: CREATE TABLE `AuthItem` (
+	`name` varchar(255) NOT NULL pk,
+	`type` varchar(255) NOT NULL,
+	`description` varchar(255) NOT NULL,
+	`bizrule` varchar(255) NOT NULL,
+	`data` varchar(255) NOT NULL
+).
+2017/04/28 11:15:50 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassigment' doesn't exist. The SQL statement executed was: CREATE INDEX `idx-post-id_user_auth` ON `AuthAssigment` (`id_user`).
+2017/04/28 11:16:43 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'authitem' already exists. The SQL statement executed was: CREATE TABLE `AuthItem` (
+	`name` varchar(255) NOT NULL,
+	`type` varchar(255) NOT NULL,
+	`description` varchar(255) NOT NULL,
+	`bizrule` varchar(255) NOT NULL,
+	`data` varchar(255) NOT NULL
+).
+2017/04/28 11:16:59 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassigment' doesn't exist. The SQL statement executed was: CREATE INDEX `idx-post-id_user_auth` ON `AuthAssigment` (`id_user`).
+2017/04/28 11:17:59 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassigment' doesn't exist. The SQL statement executed was: CREATE INDEX `idx-post-id_user_auth` ON `AuthAssigment` (`id_user`).
+2017/04/28 11:18:33 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'authitem' already exists. The SQL statement executed was: CREATE TABLE `AuthItem` (
+	`name` varchar(255) NOT NULL,
+	`type` varchar(255) NOT NULL,
+	`description` varchar(255) NOT NULL,
+	`bizrule` varchar(255) NOT NULL,
+	`data` varchar(255) NOT NULL
+).
+2017/04/28 11:33:39 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'bizrule' cannot be null. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (126)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 11:33:39 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'bizrule' cannot be null. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(444): CDbCommand->insert('AuthItem', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthManager.php(100): CDbAuthManager->createAuthItem('createPost', 0, 'create a post', NULL, NULL)
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(126): CAuthManager->createOperation('createPost', 'create a post')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 11:34:40 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'bizrule' cannot be null. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (126)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 11:34:40 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'bizrule' cannot be null. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(444): CDbCommand->insert('AuthItem', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthManager.php(100): CDbAuthManager->createAuthItem('createPost', 0, 'create a post', NULL, NULL)
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(126): CAuthManager->createOperation('createPost', 'create a post')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 11:35:09 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authitemchild' doesn't exist. The SQL statement executed was: SELECT `name`, `type`, `description`, `bizrule`, `data`
+FROM `AuthItem`, `AuthItemChild`
+WHERE parent='updatePost' AND name=child.
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (133)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 11:35:09 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authitemchild' doesn't exist. The SQL statement executed was: SELECT `name`, `type`, `description`, `bizrule`, `data`
+FROM `AuthItem`, `AuthItemChild`
+WHERE parent='updatePost' AND name=child' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:543
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(230): CDbCommand->queryAll()
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(573): CDbAuthManager->getItemChildren('updatePost')
+#3 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(157): CDbAuthManager->detectLoop('updateOwnPost', 'updatePost')
+#4 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('updateOwnPost', 'updatePost')
+#5 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(133): CAuthItem->addChild('updatePost')
+#6 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#11 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#12 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#13 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 11:48:31 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[HY000]: General error: 1005 Can't create table 'testapp.#sql-a6c_21' (errno: 121). The SQL statement executed was: ALTER TABLE `AuthItemChild` ADD CONSTRAINT `fk-post-user_id_auth` FOREIGN KEY (`parent`) REFERENCES `AuthItem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE.
+2017/04/28 11:51:18 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'createPost' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (126)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 11:51:18 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'createPost' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(444): CDbCommand->insert('AuthItem', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthManager.php(100): CDbAuthManager->createAuthItem('createPost', 0, 'create a post', NULL, NULL)
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(126): CAuthManager->createOperation('createPost', 'create a post')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 11:51:59 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'author' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItemChild` (`parent`, `child`) VALUES (:parent, :child).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (140)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 11:51:59 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'author' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItemChild` (`parent`, `child`) VALUES (:parent, :child)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(165): CDbCommand->insert('AuthItemChild', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('author', 'createPost')
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(140): CAuthItem->addChild('createPost')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 12:09:15 [error] [exception.CException] exception 'CException' with message 'CDbAuthManager and its behaviors do not have a method or closure named "removeAll".' in D:\OpenServer\domains\my-project.by\framework\base\CComponent.php:266
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(126): CComponent->__call('removeAll', Array)
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(126): CDbAuthManager->removeAll()
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 12:09:49 [error] [exception.CException] exception 'CException' with message 'Either "editor" or "reader" does not exist.' in D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php:170
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('editor', 'reader')
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(147): CAuthItem->addChild('reader')
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 12:21:30 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassignment' doesn't exist. The SQL statement executed was: DELETE FROM `AuthAssignment`.
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (126)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 12:21:30 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassignment' doesn't exist. The SQL statement executed was: DELETE FROM `AuthAssignment`' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1330): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(560): CDbCommand->delete('AuthAssignment')
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(550): CDbAuthManager->clearAuthAssignments()
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(126): CDbAuthManager->clearAll()
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 12:21:46 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassignment' doesn't exist. The SQL statement executed was: DELETE FROM `AuthAssignment`.
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (126)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 12:21:46 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassignment' doesn't exist. The SQL statement executed was: DELETE FROM `AuthAssignment`' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1330): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(560): CDbCommand->delete('AuthAssignment')
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(550): CDbAuthManager->clearAuthAssignments()
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(126): CDbAuthManager->clearAll()
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 12:22:10 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'author' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItemChild` (`parent`, `child`) VALUES (:parent, :child).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (140)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 12:22:10 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'author' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItemChild` (`parent`, `child`) VALUES (:parent, :child)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(165): CDbCommand->insert('AuthItemChild', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('author', 'createPost')
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(140): CAuthItem->addChild('createPost')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 12:30:11 [error] [exception.CException] exception 'CException' with message 'Either "admin" or "editor" does not exist.' in D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php:170
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('admin', 'editor')
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(148): CAuthItem->addChild('editor')
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 12:31:17 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassignment' doesn't exist. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (155)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 12:31:17 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassignment' doesn't exist. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(263): CDbCommand->insert('AuthAssignment', Array)
+#2 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(155): CDbAuthManager->assign('admin', 'adminD')
+#3 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#9 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 12:32:17 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassignment' doesn't exist. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (155)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 12:32:17 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassignment' doesn't exist. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(263): CDbCommand->insert('AuthAssignment', Array)
+#2 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(155): CDbAuthManager->assign('admin', 17)
+#3 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#9 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:15:15 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'author' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItemChild` (`parent`, `child`) VALUES (:parent, :child).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (140)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:15:15 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'author' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItemChild` (`parent`, `child`) VALUES (:parent, :child)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(165): CDbCommand->insert('AuthItemChild', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('author', 'createPost')
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(140): CAuthItem->addChild('createPost')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:17:07 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'createPost' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (127)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:17:07 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'createPost' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(444): CDbCommand->insert('AuthItem', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthManager.php(100): CDbAuthManager->createAuthItem('createPost', 0, 'create a post', NULL, NULL)
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(127): CAuthManager->createOperation('createPost', 'create a post')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:20:50 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'author' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItemChild` (`parent`, `child`) VALUES (:parent, :child).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (141)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:20:50 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'author' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItemChild` (`parent`, `child`) VALUES (:parent, :child)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(165): CDbCommand->insert('AuthItemChild', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('author', 'createPost')
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(141): CAuthItem->addChild('createPost')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:28:30 [error] [php] Object of class CAuthItem could not be converted to string (D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:337)
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(444): CDbCommand->insert()
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthManager.php(100): CDbAuthManager->createAuthItem()
+#2 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(132): CDbAuthManager->createOperation()
+#3 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): SiteController->runAction()
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): SiteController->run()
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 D:\OpenServer\domains\my-project.by\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/install
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (132)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:31:51 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'admin' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (131)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:31:51 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'admin' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(444): CDbCommand->insert('AuthItem', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthManager.php(100): CDbAuthManager->createAuthItem('admin', 0, 'create a post', NULL, NULL)
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(131): CAuthManager->createOperation('admin', 'create a post')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:33:00 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassignment' doesn't exist. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (159)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:33:00 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testapp.authassignment' doesn't exist. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(263): CDbCommand->insert('AuthAssignment', Array)
+#2 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(159): CDbAuthManager->assign('admin', 17)
+#3 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#9 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:33:35 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'userid' in 'field list'. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (159)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:33:35 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'userid' in 'field list'. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(263): CDbCommand->insert('AuthAssignment', Array)
+#2 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(159): CDbAuthManager->assign('admin', 17)
+#3 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#9 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:36:02 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'userid' in 'field list'. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (159)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:36:02 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'userid' in 'field list'. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(263): CDbCommand->insert('AuthAssignment', Array)
+#2 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(159): CDbAuthManager->assign('admin', 17)
+#3 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#9 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:39:06 [error] [exception.CException] exception 'CException' with message 'CDbAuthManager and its behaviors do not have a method or closure named "add".' in D:\OpenServer\domains\my-project.by\framework\base\CComponent.php:266
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(131): CComponent->__call('add', Array)
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(131): CDbAuthManager->add(Object(CAuthItem))
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:40:00 [error] [exception.CException] exception 'CException' with message 'CDbAuthManager and its behaviors do not have a method or closure named "createPermission".' in D:\OpenServer\domains\my-project.by\framework\base\CComponent.php:266
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(133): CComponent->__call('createPermissio...', Array)
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(133): CDbAuthManager->createPermission('admin')
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:42:14 [error] [php] Object of class CAuthItem could not be converted to string (D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:337)
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(444): CDbCommand->insert()
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthManager.php(100): CDbAuthManager->createAuthItem()
+#2 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(131): CDbAuthManager->createOperation()
+#3 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): SiteController->runAction()
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): SiteController->run()
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 D:\OpenServer\domains\my-project.by\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/install
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (131)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:44:16 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'admin' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (131)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:44:16 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'admin' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(444): CDbCommand->insert('AuthItem', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthManager.php(100): CDbAuthManager->createAuthItem('admin', 0, 'create a post', NULL, NULL)
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(131): CAuthManager->createOperation('admin', 'create a post')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:45:29 [error] [exception.CException] exception 'CException' with message 'Either "admin" or "readPost" does not exist.' in D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php:170
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('admin', 'readPost')
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(133): CAuthItem->addChild('readPost')
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:46:17 [error] [exception.CException] exception 'CException' with message 'Either "admin" or "readPost" does not exist.' in D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php:170
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('admin', 'readPost')
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(133): CAuthItem->addChild('readPost')
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:48:03 [error] [exception.CException] exception 'CException' with message 'Either "author" or "createPost" does not exist.' in D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php:170
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('author', 'createPost')
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(140): CAuthItem->addChild('createPost')
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:48:41 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'editor' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItemChild` (`parent`, `child`) VALUES (:parent, :child).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (145)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:48:41 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'editor' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItemChild` (`parent`, `child`) VALUES (:parent, :child)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(165): CDbCommand->insert('AuthItemChild', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('editor', 'updatePost')
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(145): CAuthItem->addChild('updatePost')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:49:54 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'admin' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (147)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:49:54 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'admin' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES (:name, :type, :description, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(444): CDbCommand->insert('AuthItem', Array)
+#2 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthManager.php(72): CDbAuthManager->createAuthItem('admin', 2, '', NULL, NULL)
+#3 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(147): CAuthManager->createRole('admin')
+#4 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:50:42 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'userid' in 'field list'. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (152)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:50:42 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'userid' in 'field list'. The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(263): CDbCommand->insert('AuthAssignment', Array)
+#2 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(152): CDbAuthManager->assign('admin', 17)
+#3 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#9 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:53:09 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`testapp`.`authassignment`, CONSTRAINT `FK_AuthAssigment_AuthItem` FOREIGN KEY (`itemname`) REFERENCES `AuthItem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE). The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data).
+in D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php (153)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 13:53:09 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`testapp`.`authassignment`, CONSTRAINT `FK_AuthAssigment_AuthItem` FOREIGN KEY (`itemname`) REFERENCES `AuthItem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE). The SQL statement executed was: INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES (:itemname, :userid, :bizrule, :data)' in D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\db\CDbCommand.php(1278): CDbCommand->execute(Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php(263): CDbCommand->insert('AuthAssignment', Array)
+#2 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(153): CDbAuthManager->assign('user', 21)
+#3 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#9 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:55:25 [error] [exception.CException] exception 'CException' with message 'Either "user" or "Create post" does not exist.' in D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php:170
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('user', 'Create post')
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(146): CAuthItem->addChild('Create post')
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 13:56:17 [error] [exception.CException] exception 'CException' with message 'Either "user" or "Create post" does not exist.' in D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php:170
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('user', 'Create post')
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(147): CAuthItem->addChild('Create post')
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 14:00:00 [error] [exception.CException] exception 'CException' with message 'Either "user" or "create" does not exist.' in D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php:170
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('user', 'create')
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(147): CAuthItem->addChild('create')
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 14:00:55 [error] [exception.CException] exception 'CException' with message 'Either "updatePost" or "update a post" does not exist.' in D:\OpenServer\domains\my-project.by\framework\web\auth\CDbAuthManager.php:170
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\auth\CAuthItem.php(193): CDbAuthManager->addItemChild('updatePost', 'update a post')
+#1 D:\OpenServer\domains\my-project.by\protected\controllers\SiteController.php(147): CAuthItem->addChild('update a post')
+#2 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): SiteController->actionInstall()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('install')
+#7 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('site/install')
+#8 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/install
+---
+2017/04/28 16:29:14 [error] [php] include(SiteController.php): failed to open stream: No such file or directory (D:\OpenServer\domains\my-project.by\framework\YiiBase.php:432)
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\protected\controllers\UsersController.php(4): spl_autoload_call()
+#1 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(354): require()
+#2 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(276): CWebApplication->createController()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 D:\OpenServer\domains\my-project.by\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/users/index
+in D:\OpenServer\domains\my-project.by\protected\controllers\UsersController.php (4)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 16:30:13 [error] [exception.CException] exception 'CException' with message 'Property "UsersController.breadcrumbs" is not defined.' in D:\OpenServer\domains\my-project.by\framework\base\CComponent.php:173
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\protected\views\users\index.php(5): CComponent->__set('breadcrumbs', Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\CBaseController.php(126): require('D:\\OpenServer\\d...')
+#2 D:\OpenServer\domains\my-project.by\framework\web\CBaseController.php(95): CBaseController->renderInternal('D:\\OpenServer\\d...', Array, true)
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(872): CBaseController->renderFile('D:\\OpenServer\\d...', Array, true)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(785): CController->renderPartial('index', Array, true)
+#5 D:\OpenServer\domains\my-project.by\protected\controllers\UsersController.php(98): CController->render('index', Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): UsersController->actionIndex()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 D:\OpenServer\domains\my-project.by\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#11 D:\OpenServer\domains\my-project.by\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 D:\OpenServer\domains\my-project.by\framework\web\CController.php(291): CFilterChain->run()
+#14 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('index')
+#16 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('users/index')
+#17 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#18 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/index.php/users/index
+HTTP_REFERER=http://my-project.by/index.php/news/update/2
+---
+2017/04/28 16:30:21 [error] [exception.CException] exception 'CException' with message 'Property "UsersController.breadcrumbs" is not defined.' in D:\OpenServer\domains\my-project.by\framework\base\CComponent.php:173
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\protected\views\users\index.php(5): CComponent->__set('breadcrumbs', Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\CBaseController.php(126): require('D:\\OpenServer\\d...')
+#2 D:\OpenServer\domains\my-project.by\framework\web\CBaseController.php(95): CBaseController->renderInternal('D:\\OpenServer\\d...', Array, true)
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(872): CBaseController->renderFile('D:\\OpenServer\\d...', Array, true)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(785): CController->renderPartial('index', Array, true)
+#5 D:\OpenServer\domains\my-project.by\protected\controllers\UsersController.php(98): CController->render('index', Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): UsersController->actionIndex()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 D:\OpenServer\domains\my-project.by\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#11 D:\OpenServer\domains\my-project.by\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 D:\OpenServer\domains\my-project.by\framework\web\CController.php(291): CFilterChain->run()
+#14 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('index')
+#16 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('users/index')
+#17 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#18 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/index.php/users/index
+HTTP_REFERER=http://my-project.by/index.php/news/index
+---
+2017/04/28 16:30:39 [error] [exception.CException] exception 'CException' with message 'Property "UsersController.breadcrumbs" is not defined.' in D:\OpenServer\domains\my-project.by\framework\base\CComponent.php:173
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\protected\views\users\index.php(5): CComponent->__set('breadcrumbs', Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\CBaseController.php(126): require('D:\\OpenServer\\d...')
+#2 D:\OpenServer\domains\my-project.by\framework\web\CBaseController.php(95): CBaseController->renderInternal('D:\\OpenServer\\d...', Array, true)
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(872): CBaseController->renderFile('D:\\OpenServer\\d...', Array, true)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(785): CController->renderPartial('index', Array, true)
+#5 D:\OpenServer\domains\my-project.by\protected\controllers\UsersController.php(98): CController->render('index', Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): UsersController->actionIndex()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 D:\OpenServer\domains\my-project.by\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#11 D:\OpenServer\domains\my-project.by\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 D:\OpenServer\domains\my-project.by\framework\web\CController.php(291): CFilterChain->run()
+#14 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('index')
+#16 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('users/index')
+#17 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#18 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/index.php/users/index
+HTTP_REFERER=http://my-project.by/index.php/news/index
+---
+2017/04/28 16:32:23 [error] [exception.CException] exception 'CException' with message 'Property "UsersController.breadcrumbs" is not defined.' in D:\OpenServer\domains\my-project.by\framework\base\CComponent.php:173
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\protected\views\users\index.php(5): CComponent->__set('breadcrumbs', Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\CBaseController.php(126): require('D:\\OpenServer\\d...')
+#2 D:\OpenServer\domains\my-project.by\framework\web\CBaseController.php(95): CBaseController->renderInternal('D:\\OpenServer\\d...', Array, true)
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(872): CBaseController->renderFile('D:\\OpenServer\\d...', Array, true)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(785): CController->renderPartial('index', Array, true)
+#5 D:\OpenServer\domains\my-project.by\protected\controllers\UsersController.php(98): CController->render('index', Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): UsersController->actionIndex()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 D:\OpenServer\domains\my-project.by\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#11 D:\OpenServer\domains\my-project.by\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 D:\OpenServer\domains\my-project.by\framework\web\CController.php(291): CFilterChain->run()
+#14 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('index')
+#16 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('users/index')
+#17 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#18 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/index.php/users/index
+HTTP_REFERER=http://my-project.by/index.php/news/index
+---
+2017/04/28 16:33:00 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'У вас не хватает доступа' in D:\OpenServer\domains\my-project.by\protected\controllers\CarsController.php:155
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\CController.php(306): CarsController->beforeAction(Object(CInlineAction))
+#1 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#2 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#4 D:\OpenServer\domains\my-project.by\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(291): CFilterChain->run()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('update')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('cars/update')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/cars/update/1
+HTTP_REFERER=http://my-project.by/index.php/cars/index
+---
+2017/04/28 16:33:48 [error] [php] include(ExceptionClass.php): failed to open stream: No such file or directory (D:\OpenServer\domains\my-project.by\framework\YiiBase.php:432)
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\protected\controllers\CarsController.php(155): spl_autoload_call()
+#1 D:\OpenServer\domains\my-project.by\framework\web\CController.php(306): CarsController->beforeAction()
+#2 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(134): CarsController->runAction()
+#3 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(1148): CAccessControlFilter->filter()
+#5 D:\OpenServer\domains\my-project.by\framework\web\filters\CInlineFilter.php(58): CarsController->filterAccessControl()
+#6 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(291): CFilterChain->run()
+#8 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CarsController->runActionWithFilters()
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CarsController->run()
+#10 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#12 D:\OpenServer\domains\my-project.by\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/cars/update/1
+in D:\OpenServer\domains\my-project.by\protected\controllers\CarsController.php (155)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 16:33:58 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'У вас не хватает доступа' in D:\OpenServer\domains\my-project.by\protected\controllers\CarsController.php:155
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\CController.php(306): CarsController->beforeAction(Object(CInlineAction))
+#1 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#2 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#4 D:\OpenServer\domains\my-project.by\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(291): CFilterChain->run()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('update')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('cars/update')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/cars/update/1
+HTTP_REFERER=http://my-project.by/index.php/cars/index
+---
+2017/04/28 16:40:10 [error] [php] The use statement with non-compound name 'Users' has no effect (D:\OpenServer\domains\my-project.by\protected\controllers\CarsController.php:2)
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#1 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#2 D:\OpenServer\domains\my-project.by\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/cars/index
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 16:40:32 [error] [php] include(SiteController.php): failed to open stream: No such file or directory (D:\OpenServer\domains\my-project.by\framework\YiiBase.php:432)
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\protected\controllers\CarsController.php(4): spl_autoload_call()
+#1 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(354): require()
+#2 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(276): CWebApplication->createController()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 D:\OpenServer\domains\my-project.by\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/cars/index
+in D:\OpenServer\domains\my-project.by\protected\controllers\CarsController.php (4)
+in D:\OpenServer\domains\my-project.by\index.php (13)
+2017/04/28 16:41:03 [error] [exception.CException] exception 'CException' with message 'Property "CarsController.breadcrumbs" is not defined.' in D:\OpenServer\domains\my-project.by\framework\base\CComponent.php:173
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\protected\views\cars\index.php(5): CComponent->__set('breadcrumbs', Array)
+#1 D:\OpenServer\domains\my-project.by\framework\web\CBaseController.php(126): require('D:\\OpenServer\\d...')
+#2 D:\OpenServer\domains\my-project.by\framework\web\CBaseController.php(95): CBaseController->renderInternal('D:\\OpenServer\\d...', Array, true)
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(872): CBaseController->renderFile('D:\\OpenServer\\d...', Array, true)
+#4 D:\OpenServer\domains\my-project.by\framework\web\CController.php(785): CController->renderPartial('index', Array, true)
+#5 D:\OpenServer\domains\my-project.by\protected\controllers\CarsController.php(102): CController->render('index', Array)
+#6 D:\OpenServer\domains\my-project.by\framework\web\actions\CInlineAction.php(49): CarsController->actionIndex()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 D:\OpenServer\domains\my-project.by\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#11 D:\OpenServer\domains\my-project.by\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 D:\OpenServer\domains\my-project.by\framework\web\CController.php(291): CFilterChain->run()
+#14 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('index')
+#16 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('cars/index')
+#17 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#18 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/index.php/cars/index
+HTTP_REFERER=http://my-project.by/index.php/news/index
+---
+2017/04/28 16:42:43 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'У вас не хватает доступа' in D:\OpenServer\domains\my-project.by\protected\controllers\CarsController.php:155
+Stack trace:
+#0 D:\OpenServer\domains\my-project.by\framework\web\CController.php(306): CarsController->beforeAction(Object(CInlineAction))
+#1 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#2 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\OpenServer\domains\my-project.by\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#4 D:\OpenServer\domains\my-project.by\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 D:\OpenServer\domains\my-project.by\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#6 D:\OpenServer\domains\my-project.by\framework\web\CController.php(291): CFilterChain->run()
+#7 D:\OpenServer\domains\my-project.by\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(282): CController->run('update')
+#9 D:\OpenServer\domains\my-project.by\framework\web\CWebApplication.php(141): CWebApplication->runController('cars/update')
+#10 D:\OpenServer\domains\my-project.by\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 D:\OpenServer\domains\my-project.by\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/cars/update/1
+HTTP_REFERER=http://my-project.by/index.php/cars/index
+---

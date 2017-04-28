@@ -60,6 +60,7 @@ class UsersController extends Controller
 		if(isset($_POST['Users']))
 		{
 			$model->attributes=$_POST['Users'];
+            Yii::app()->session->add("username", $model->username);
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -139,4 +140,7 @@ class UsersController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+
+
 }

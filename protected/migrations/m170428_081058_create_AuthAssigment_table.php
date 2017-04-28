@@ -1,34 +1,39 @@
 <?php
 
-class m170426_125855_create_cars_table extends CDbMigration
+class m170428_081058_create_AuthAssigment_table extends CDbMigration
 {
 	public function up()
 	{
         $transaction=$this->getDbConnection()->beginTransaction();
-
         try
         {
-            $this->createTable('cars', array(
-                'id' => 'pk',
-                'id_user' => 'integer NOT NULL',
-                'brand' => 'string NOT NULL',
-                'number' => 'string NOT NULL',
-                'cost' => 'double NOT NULL',
+            $this->createTable('AuthAssigment', array(
+                'itemname' => 'string NOT NULL',
+                'user_id' => 'int NOT NULL',
+                'bizrule' => 'string NOT NULL',
+                'data' => 'string NOT NULL',
             ));
             $this->createIndex(
-                'idx-post-id_user_cars',
-                'cars',
-                'id_user'
+                'idx-post-user_id_auth',
+                'AuthAssigment',
+                'user_id'
             );
             $this->addForeignKey(
-                'fk-post-id_user_cars',
-                'cars',
-                'id_user',
+                'fk-post-user_id_auth',
+                'AuthAssigment',
+                'user_id',
                 'users',
                 'id',
                 'CASCADE',
                 'CASCADE'
             );
+
+            $this->addPrimaryKey(
+                'item_pk',
+                'AuthAssigment',
+                'itemname');
+
+
             $transaction->commit();
         }
         catch(Exception $e)
@@ -37,12 +42,12 @@ class m170426_125855_create_cars_table extends CDbMigration
             $transaction->rollback();
             return false;
         }
+
 	}
 
 	public function down()
 	{
-        $this->dropTable('cars');
-		echo "m170426_125855_create_cars_table does not support migration down.\n";
+		echo "m170428_081058_create_AuthAssigment_table does not support migration down.\n";
 		return false;
 	}
 
