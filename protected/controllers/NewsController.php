@@ -37,7 +37,9 @@ class NewsController extends Controller
 	public function actionCreate()
 	{
 		$model=new News;
-
+        if (!Yii::app()->roles->checkAccess('Create')) {
+            return $this->redirect(array('site/roles'));
+        }
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -60,6 +62,9 @@ class NewsController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+        if (!Yii::app()->roles->checkAccess('Update')) {
+            return $this->redirect(array('site/roles'));
+        }
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -84,6 +89,9 @@ class NewsController extends Controller
 	 */
 	public function actionDelete($id)
 	{
+        if (!Yii::app()->roles->checkAccess('Delete')) {
+            return $this->redirect(array('site/roles'));
+        }
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -144,4 +152,8 @@ class NewsController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+
+
+
 }

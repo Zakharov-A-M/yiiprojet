@@ -43,7 +43,15 @@ div.form textarea,
 div.form select
 {
 	margin: 0.2em 0 0.5em 0;
+	padding: 6px 20px 6px 20px;
+	font-size: 16px;
 }
+
+div.form input .btn-success{
+
+}
+
+
 
 div.form fieldset
 {
@@ -58,6 +66,7 @@ div.form label
 	font-weight: bold;
 	font-size: 0.9em;
 	display: block;
+	font-size: 17px;
 }
 
 div.form .row
@@ -109,6 +118,7 @@ div.form select.success
 {
 	background: #E6EFC2;
 	border-color: #C6D880;
+	font-size: 17px;
 }
 
 div.form div.success label
@@ -162,3 +172,5 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	clear: left;
 	padding-left: 110px;
 }
+
+

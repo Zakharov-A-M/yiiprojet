@@ -119,47 +119,34 @@ class SiteController extends Controller
         $this->render('registration',array('model'=>$model));
     }
 
-
+    /**
+     * Сохранение в бд роли для rbac
+     */
     public function actionInstall()
     {
         $auth=Yii::app()->authManager;
-        $auth->createOperation('admin', 'create a post');
-        $auth->createOperation('readPost','read a post');
 
-
-        $role=$auth->createRole('reader');
-        $role->addChild('readPost');
-
+        $auth->createOperation('Create', 'Create operation');
+        $auth->createOperation('Delete', 'Delete operation');
+        $auth->createOperation('Update', 'Update operation');
 
         $role=$auth->createRole('user');
-        $role->addChild('reader');
+        $role->addChild('Create');
+        $role->addChild('Update');
+        $role=$auth->createRole('admin');
+        $role->addChild('Delete');
 
-
-        /* $role=$auth->createRole('author');
-         $role->addChild('reader');
-         $role->addChild('createPost');
-         $role->addChild('updateOwnPost');*/
-
-        $role=$auth->createRole('editor');
-        $role->addChild('reader');
-
-       // $role=$auth->createRole('updatePost');
-       // $role->addChild('update a post');
-       // $role->addChild('updatePost');
-
-      /*  $role=$auth->createRole('admin');
-        $role->addChild('editor');
-        $role->addChild('author');
-        $role->addChild('deletePost');*/
-
-        $auth->assign('admin', 17);
+        $auth->assign('admin', 26);
         $auth->assign('user', 20);
-       /* $auth->assign('author', 20);
-        $auth->assign('editor', 20);
-        $auth->assign('admin', 20);*/
         echo  'YII!';
     }
 
+
+
+    public function actionRoles()
+    {
+        $this->render('roles');
+    }
 
 
 

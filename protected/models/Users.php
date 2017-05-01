@@ -16,6 +16,7 @@ class Users extends CActiveRecord
 
     public $username;
     public $password;
+    public $auth_key;
 
 	/**
 	 * @return string the associated database table name
@@ -24,6 +25,9 @@ class Users extends CActiveRecord
 	{
 		return 'users';
 	}
+
+
+
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -34,7 +38,7 @@ class Users extends CActiveRecord
 			array('username, password','required'),
             array('password', 'authenticates', 'on' => 'authenticate'),
             array('password', 'dublicate', 'on' => 'dublicate'),
-			array('username, password', 'length', 'max'=>255),
+			array('username, password, auth_key', 'length', 'max'=>255),
 			array('id, username, password', 'safe', 'on'=>'search'),
 		);
 	}
@@ -158,6 +162,7 @@ class Users extends CActiveRecord
             $model = new Users();
             $model->username = $this->username;
             $model->password = $this->HashPassword($this->password);
+            $model->auth_key = $this->generateAuthKey();
             if($model->save()) {
                 $user = new CDbCriteria;
               //  $user->select='username';
@@ -166,6 +171,8 @@ class Users extends CActiveRecord
                 $posts = Users::model()->find($user);
                 Yii::app()->session->add("id", $posts->id);
                 Yii::app()->session->add("username", $posts->username);
+                $auth=Yii::app()->authManager;
+                $auth->assign('user', strval(Yii::app()->session->get("id")));
                 return true;
             }
         }
@@ -181,15 +188,71 @@ class Users extends CActiveRecord
 	     return  hash('sha256',$password);
     }
 
-
-    public function getRole(){
-        if(Yii::app()->session->get("id") != ''){
-            $user = new CDbCriteria;
-            $user->condition='userid=:userid';
-            $user->params=array(':userid'=>Yii::app()->session->get("id"));
-            $model = AuthAssigment::model()->find($user);
-            return $model->itemname;
+    /**
+     * @param $role string имя операции
+     * @return bool
+     */
+    public function checkAccess($role)
+    {
+        $user = new CDbCriteria;
+        $user->condition='userid=:userid';
+        $user->params=array(':userid'=>strval(Yii::app()->session->get("id")));
+        $model = AuthAssigment::model()->find($user);
+        $action = AuthItemChild::model()->findByAttributes(array('parent' => $model->itemname, 'child' => $role));
+        if($action != null && $model != null){
+            return true;
         }
+        else{
+            return false;
+        }
+    }
+
+    /**
+     * Генерирует token пользователя
+     * @return string
+     */
+    private function generateAuthKey(){
+        return  md5(uniqid(rand(),1));
+    }
+
+    /**
+     * Получение token пользователя при авторизации в api
+     * @return string auth_key
+     * @return null
+     */
+    public  function getToken(){
+        $user = new CDbCriteria;
+        $user->condition = 'username=:username';
+        $user->params = array(':username'=>$this->username);
+        $posts = Users::model()->find($user);
+        if($posts->password == $this->HashPassword($this->password)){
+            return $posts->auth_key;
+        }
+        return null;
+    }
+
+    /**
+     * мотод определяет если ли пользователь с таким то token
+     * @return bool
+     */
+    public function getRule(){
+        $auth_key  = new CDbCriteria;
+        $auth_key ->condition = 'auth_key=:auth_key';
+        $auth_key ->params = array(':auth_key'=>$this->auth_key);
+        $count = Users::model()->count($auth_key);
+        if($count > 0){
+            return true;
+        }
+        return false;
+    }
+
+
+    public function getUser(){
+        $auth_key  = new CDbCriteria;
+        $auth_key ->condition = 'auth_key=:auth_key';
+        $auth_key ->params = array(':auth_key'=>$this->auth_key);
+        $model = Users::model()->find($auth_key);
+        return $model->id;
     }
 
 

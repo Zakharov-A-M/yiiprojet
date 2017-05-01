@@ -36,6 +36,9 @@ class UsersController extends Controller
 	 */
 	public function actionCreate()
 	{
+        if (!Yii::app()->roles->checkAccess('Create')) {
+            return $this->redirect(array('site/roles'));
+        }
 		$model = new Users;
 		if(isset($_POST['Users']))
 		{
@@ -56,6 +59,9 @@ class UsersController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+        if (!Yii::app()->roles->checkAccess('Update')) {
+            return $this->redirect(array('site/roles'));
+        }
 		$model=$this->loadModel($id);
 		if(isset($_POST['Users']))
 		{
@@ -76,6 +82,9 @@ class UsersController extends Controller
 	 */
 	public function actionDelete($id)
 	{
+        if (!Yii::app()->roles->checkAccess('Delete')) {
+            return $this->redirect(array('site/roles'));
+        }
 	    if(Yii::app()->session->get("id") == $id ){
 	        unset(Yii::app()->session["id"]);
             $this->loadModel($id)->delete();

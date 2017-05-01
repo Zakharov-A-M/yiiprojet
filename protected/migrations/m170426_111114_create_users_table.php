@@ -12,6 +12,7 @@ class m170426_111114_create_users_table extends CDbMigration
                 'id' => 'pk',
                 'username' => 'string NOT NULL',
                 'password' => 'string NOT NULL',
+                'auth_key' => 'string NOT NULL',
             ));
             $transaction->commit();
         }

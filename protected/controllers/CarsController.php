@@ -37,7 +37,9 @@ class CarsController extends Controller
 	public function actionCreate()
 	{
 		$model=new Cars;
-
+        if (!Yii::app()->roles->checkAccess('Create')) {
+            return $this->redirect(array('site/roles'));
+        }
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -60,18 +62,16 @@ class CarsController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+        if (!Yii::app()->roles->checkAccess('Update')) {
+            return $this->redirect(array('site/roles'));
+        }
 		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Cars']))
 		{
 			$model->attributes=$_POST['Cars'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
 		$this->render('update',array(
 			'model'=>$model,
 		));
@@ -84,6 +84,9 @@ class CarsController extends Controller
 	 */
 	public function actionDelete($id)
 	{
+        if (!Yii::app()->roles->checkAccess('Delete')) {
+            return $this->redirect(array('site/roles'));
+        }
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -144,22 +147,5 @@ class CarsController extends Controller
 			Yii::app()->end();
 		}
 	}
-
-    protected function beforeAction($action)
-    {
-        switch ( $action->id) {
-            case 'create':
-                break;
-            case 'update':
-              //  if(Yii::app()->roles->getRole)
-                throw new CHttpException(403,'У вас не хватает доступа');
-                break;
-            case 'delete':
-                break;
-        }
-        return parent::beforeAction($action);
-    }
-
-
 
 }

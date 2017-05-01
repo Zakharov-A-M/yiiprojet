@@ -1,24 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "news".
+ * This is the model class for table "AuthItemChild".
  *
- * The followings are the available columns in table 'news':
- * @property integer $id
- * @property integer $id_user
- * @property string $post
+ * The followings are the available columns in table 'AuthItemChild':
+ * @property string $parent
+ * @property string $child
  *
  * The followings are the available model relations:
- * @property Users $idUser
+ * @property AuthItem $parent0
+ * @property AuthItem $child0
  */
-class News extends CActiveRecord
+class AuthItemChild extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'news';
+		return 'AuthItemChild';
 	}
 
 	/**
@@ -29,12 +29,11 @@ class News extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user, post', 'required'),
-			array('id_user', 'numerical', 'integerOnly'=>true),
-			array('post', 'length', 'max'=>255),
+			array('parent, child', 'required'),
+			array('parent, child', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_user, post', 'safe', 'on'=>'search'),
+			array('parent, child', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,7 +45,8 @@ class News extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
+			'parent0' => array(self::BELONGS_TO, 'AuthItem', 'parent'),
+			'child0' => array(self::BELONGS_TO, 'AuthItem', 'child'),
 		);
 	}
 
@@ -56,9 +56,8 @@ class News extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'id_user' => 'Id Автора',
-			'post' => 'Новость',
+			'parent' => 'Parent',
+			'child' => 'Child',
 		);
 	}
 
@@ -80,9 +79,8 @@ class News extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('id_user',$this->id_user);
-		$criteria->compare('post',$this->post,true);
+		$criteria->compare('parent',$this->parent,true);
+		$criteria->compare('child',$this->child,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -93,51 +91,10 @@ class News extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return News the static model class
+	 * @return AuthItemChild the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-
-    /**
-     * Удаление новсти
-     * @return bool
-     */
-    public function DeleteNews()
-    {
-        $model = News::model()->findByPk($this->id);
-        if($model->id_user == $this->id_user){
-            if($model->delete()){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        else{
-            return false;
-        }
-    }
-
-    /**
-     * метод редактирование новости
-     * @return bool
-     */
-    public function UpdateNews(){
-        $model = News::model()->findByPk($this->id);
-        if($model->id_user == $this->id_user){
-            $model->post = $this->post;
-            if($model->save()){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        else{
-            return false;
-        }
-    }
-
 }
