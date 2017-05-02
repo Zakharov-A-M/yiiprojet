@@ -50,8 +50,11 @@ return array(
 				//'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
                 // REST patterns
-               // array('pattern' => 'api/sing', 'verb' => 'GET')
-                // Other controllers
+                array('api/sing', 'pattern' => 'api/sing', 'verb' => 'POST'),
+                array('api/view', 'pattern' => 'api/view', 'verb' => 'POST'),
+                array('api/create', 'pattern' => 'api/create', 'verb' => 'POST'),
+                array('api/delete', 'pattern' => 'api/delete', 'verb' => 'POST'),
+                array('api/update', 'pattern' => 'api/update', 'verb' => 'POST'),
 			),
 		),
 

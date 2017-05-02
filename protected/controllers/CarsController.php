@@ -40,9 +40,6 @@ class CarsController extends Controller
         if (!Yii::app()->roles->checkAccess('Create')) {
             return $this->redirect(array('site/roles'));
         }
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Cars']))
 		{
 			$model->attributes=$_POST['Cars'];
@@ -65,16 +62,16 @@ class CarsController extends Controller
         if (!Yii::app()->roles->checkAccess('Update')) {
             return $this->redirect(array('site/roles'));
         }
-		$model=$this->loadModel($id);
-		if(isset($_POST['Cars']))
-		{
-			$model->attributes=$_POST['Cars'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-		$this->render('update',array(
-			'model'=>$model,
-		));
+            $model = $this->loadModel($id);
+            if (isset($_POST['Cars'])) {
+                $model->attributes = $_POST['Cars'];
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
+            $this->render('update', array(
+                'model' => $model,
+            ));
+
 	}
 
 	/**
@@ -87,11 +84,11 @@ class CarsController extends Controller
         if (!Yii::app()->roles->checkAccess('Delete')) {
             return $this->redirect(array('site/roles'));
         }
-		$this->loadModel($id)->delete();
+            $this->loadModel($id)->delete();
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            if (!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**
@@ -99,10 +96,10 @@ class CarsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Cars');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+            $dataProvider = new CActiveDataProvider('Cars');
+            $this->render('index', array(
+                'dataProvider' => $dataProvider,
+            ));
 	}
 
 	/**
@@ -147,5 +144,13 @@ class CarsController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+    protected function beforeAction($action)
+    {
+        $status = new Status();
+        if($status->StatusDate()) {
+            return parent::beforeAction($action);
+        }
+    }
 
 }

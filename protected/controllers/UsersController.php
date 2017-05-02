@@ -25,9 +25,12 @@ class UsersController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+	    $status = new Status();
+        if($status->StatusDate()) {
+            $this->render('view', array(
+                'model' => $this->loadModel($id),
+            ));
+        }
 	}
 
 	/**
@@ -40,16 +43,18 @@ class UsersController extends Controller
             return $this->redirect(array('site/roles'));
         }
 		$model = new Users;
-		if(isset($_POST['Users']))
-		{
-			$model->attributes = $_POST['Users'];
-			$model->password = $model->HashPassword($model->password);
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-		$this->render('create',array(
-			'model'=>$model,
-		));
+        $status = new Status();
+        if($status->StatusDate()) {
+            if (isset($_POST['Users'])) {
+                $model->attributes = $_POST['Users'];
+                $model->password = $model->HashPassword($model->password);
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
+            $this->render('create', array(
+                'model' => $model,
+            ));
+        }
 	}
 
 	/**
@@ -62,17 +67,19 @@ class UsersController extends Controller
         if (!Yii::app()->roles->checkAccess('Update')) {
             return $this->redirect(array('site/roles'));
         }
-		$model=$this->loadModel($id);
-		if(isset($_POST['Users']))
-		{
-			$model->attributes=$_POST['Users'];
-            Yii::app()->session->add("username", $model->username);
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-		$this->render('update',array(
-			'model'=>$model,
-		));
+        $status = new Status();
+        if($status->StatusDate()) {
+            $model = $this->loadModel($id);
+            if (isset($_POST['Users'])) {
+                $model->attributes = $_POST['Users'];
+                Yii::app()->session->add("username", $model->username);
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
+            $this->render('update', array(
+                'model' => $model,
+            ));
+        }
 	}
 
 	/**
@@ -85,15 +92,18 @@ class UsersController extends Controller
         if (!Yii::app()->roles->checkAccess('Delete')) {
             return $this->redirect(array('site/roles'));
         }
-	    if(Yii::app()->session->get("id") == $id ){
-	        unset(Yii::app()->session["id"]);
+        $status = new Status();
+        if($status->StatusDate()) {
+            if (Yii::app()->session->get("id") == $id) {
+                unset(Yii::app()->session["id"]);
+                $this->loadModel($id)->delete();
+                return $this->redirect(Yii::$app->urlManager->createUrl('site/login'));
+            }
             $this->loadModel($id)->delete();
-            return $this->redirect(Yii::$app->urlManager->createUrl('site/login'));
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            if (!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
-		$this->loadModel($id)->delete();
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**
@@ -101,11 +111,21 @@ class UsersController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider = new CActiveDataProvider('Users');
-		$this->render('index', array(
-			'dataProvider' => $dataProvider,
-		));
+            $dataProvider = new CActiveDataProvider('Users');
+            $this->render('index', array(
+                'dataProvider' => $dataProvider,
+            ));
 	}
+
+
+    public function actionOnline()
+    {
+
+        $model = Users::model()->findAll();
+        $this->render('online', array(
+            'model' => $model,
+        ));
+    }
 
 	/**
 	 * Manages all models.
@@ -149,6 +169,14 @@ class UsersController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+    protected function beforeAction($action)
+    {
+        $status = new Status();
+        if($status->StatusDate()) {
+            return parent::beforeAction($action);
+        }
+    }
 
 
 
