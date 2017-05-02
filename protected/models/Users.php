@@ -76,6 +76,7 @@ class Users extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'news' => array(self::HAS_MANY, 'News', 'id_user'),
+            'status' => array(self::HAS_ONE, 'Status', 'id_user'),
 		);
 	}
 
@@ -88,6 +89,7 @@ class Users extends CActiveRecord
 			'id' => 'ID',
 			'username' => 'Username',
 			'password' => 'Password',
+			//'status' => 'status',
 		);
 	}
 

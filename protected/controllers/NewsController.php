@@ -40,19 +40,15 @@ class NewsController extends Controller
         if (!Yii::app()->roles->checkAccess('Create')) {
             return $this->redirect(array('site/roles'));
         }
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+            if (isset($_POST['News'])) {
+                $model->attributes = $_POST['News'];
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
 
-		if(isset($_POST['News']))
-		{
-			$model->attributes=$_POST['News'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
+            $this->render('create', array(
+                'model' => $model,
+            ));
 	}
 
 	/**
@@ -62,24 +58,24 @@ class NewsController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-        if (!Yii::app()->roles->checkAccess('Update')) {
-            return $this->redirect(array('site/roles'));
-        }
-		$model=$this->loadModel($id);
+            if (!Yii::app()->roles->checkAccess('Update')) {
+                return $this->redirect(array('site/roles'));
+            }
+            $model = $this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
 
-		if(isset($_POST['News']))
-		{
-			$model->attributes=$_POST['News'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+            if (isset($_POST['News'])) {
+                $model->attributes = $_POST['News'];
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
+            $this->render('update', array(
+                'model' => $model,
+            ));
+
 	}
 
 	/**
@@ -92,11 +88,11 @@ class NewsController extends Controller
         if (!Yii::app()->roles->checkAccess('Delete')) {
             return $this->redirect(array('site/roles'));
         }
-		$this->loadModel($id)->delete();
+            $this->loadModel($id)->delete();
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            if (!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**
@@ -104,10 +100,10 @@ class NewsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('News');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+            $dataProvider = new CActiveDataProvider('News');
+            $this->render('index', array(
+                'dataProvider' => $dataProvider,
+            ));
 	}
 
 	/**
@@ -152,6 +148,14 @@ class NewsController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+    protected function beforeAction($action)
+    {
+        $status = new Status();
+        if($status->StatusDate()) {
+            return parent::beforeAction($action);
+        }
+    }
 
 
 

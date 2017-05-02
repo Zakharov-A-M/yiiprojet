@@ -52,6 +52,7 @@
                     array('label'=>'News', 'url'=>array('/news/index')),
                     array('label'=>'Cars', 'url'=>array('/cars/index')),
                     array('label'=>'Users', 'url'=>array('/users/index')),
+                    array('label'=>'Status', 'url'=>array('/users/online')),
                  //   array('label'=>'Registration', 'url'=>array('/site/registration')),
                   //  array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                     array('label'=>'Logout ('.Yii::app()->session->get("username").')', 'url'=>array('/site/logout')),
